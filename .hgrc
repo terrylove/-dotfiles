@@ -1,0 +1,20 @@
+[extensions]
+progress=
+mq=
+color=
+shelve=
+rebase=
+
+[web]
+name=
+
+[ui]
+username=Terry Wang <terry494@gmail.com>
+editor=geany
+
+[tortoisehg]
+editor=
+
+[diff]
+git=True
+
