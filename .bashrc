@@ -128,6 +128,28 @@ sudo $ADB_PATH kill-server
 sudo $ADB_PATH devices
 }
 
+jdk_6() {
+sudo update-alternatives --set java /usr/lib/jvm/jdk1.6.0_45/bin/java 
+sudo update-alternatives --set javac /usr/lib/jvm/jdk1.6.0_45/bin/javac
+sudo update-alternatives --set javaws /usr/lib/jvm/jdk1.6.0_45/bin/javaws
+sudo update-alternatives --set jar /usr/lib/jvm/jdk1.6.0_45/bin/jar
+sudo update-alternatives --set javadoc /usr/lib/jvm/jdk1.6.0_45/bin/javadoc
+sudo update-alternatives --set javah /usr/lib/jvm/jdk1.6.0_45/bin/javah
+sudo update-alternatives --set keytool /usr/lib/jvm/jdk1.6.0_45/bin/keytool
+sudo update-alternatives --set javap /usr/lib/jvm/jdk1.6.0_45/bin/javap
+}
+
+jdk_7() {
+sudo update-alternatives --set java /usr/lib/jvm/jdk1.7.0_79/bin/java
+sudo update-alternatives --set javac /usr/lib/jvm/jdk1.7.0_79/bin/javac
+sudo update-alternatives --set javaws /usr/lib/jvm/jdk1.7.0_79/bin/javaws
+sudo update-alternatives --set jar /usr/lib/jvm/jdk1.7.0_79/bin/jar
+sudo update-alternatives --set javadoc /usr/lib/jvm/jdk1.7.0_79/bin/javadoc
+sudo update-alternatives --set javah /usr/lib/jvm/jdk1.7.0_79/bin/javah
+sudo update-alternatives --set keytool /usr/lib/jvm/jdk1.7.0_79/bin/keytool
+sudo update-alternatives --set javap /usr/lib/jvm/jdk1.7.0_79/bin/javap
+}
+
 shine_work() {
 launch_workspace shine_eng $1
 }
