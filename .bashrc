@@ -119,6 +119,8 @@ AAPT_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/
 ECLIPSE_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/eclipse
 JAVA_HOME=/usr/lib/jvm/jdk1.6.0_45
 PATH=$JAVA_HOME:$AAPT_HOME:$ECLIPSE_HOME:$ANDROID_NDK_HOME:$ADB_HOME:$PATH
+#export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/dist-packages/
+alias python=/usr/bin/python2.7
 
 
 adb_permission() {
@@ -201,11 +203,11 @@ adb_permission
 gnome-terminal --maximize \
 --tab-with-profile=NoTitleChange -t "build $CODEBASE" --zoom=1.4 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
 --tab-with-profile=NoTitleChange -t "search $CODEBASE" --zoom=1.4 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "minicom(/home/terrylove/logs/minicom/minicom_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB$TARGET_COMPORT -b 115200 -C /home/terrylove/logs/minicom/minicom_$DATE.txt; exec bash -i\"" \
---tab-with-profile=NoTitleChange -t "adb logcat(/home/terrylove/logs/adb/adb_$DATE.txt)" --zoom=1.4 -e "bash -c \"adb logcat > /home/terrylove/logs/adb/adb_$DATE.txt; exec bash -i\"" \
---tab-with-profile=NoTitleChange -t "adb logcat show" --zoom=1.4 -e "bash -c \"adb logcat ; exec bash -i\""
+--tab-with-profile=NoTitleChange -t "minicom(/home/terrylove/logs/minicom/minicom_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB$TARGET_COMPORT -b 115200 -C /home/terrylove/logs/minicom/minicom_$DATE.txt; exec bash -i\""
 }
 
+# --tab-with-profile=NoTitleChange -t "adb logcat(/home/terrylove/logs/adb/adb_$DATE.txt)" --zoom=1.4 -e "bash -c \"adb logcat > /home/terrylove/logs/adb/adb_$DATE.txt; exec bash -i\"" \
+# --tab-with-profile=NoTitleChange -t "adb logcat show" --zoom=1.4 -e "bash -c \"adb logcat ; exec bash -i\""
 
 #export CSCOPE_EDITOR=vim
 

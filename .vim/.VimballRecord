@@ -1,0 +1,1 @@
+cecscope.vba: call delete('/home/terrylove/.vim/plugin/cecscope.vim')|call delete('/home/terrylove/.vim/doc/cecscope.txt')
