@@ -201,9 +201,12 @@ echo "time : " $DATE
 adb_permission
 
 gnome-terminal --maximize \
---tab-with-profile=NoTitleChange -t "build $CODEBASE" --zoom=1.4 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "search $CODEBASE" --zoom=1.4 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "minicom(/home/terrylove/logs/minicom/minicom_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB$TARGET_COMPORT -b 115200 -C /home/terrylove/logs/minicom/minicom_$DATE.txt; exec bash -i\""
+--tab-with-profile=NoTitleChange -t "build $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
+--tab-with-profile=NoTitleChange -t "search $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
+--tab-with-profile=NoTitleChange -t "burn $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
+--tab-with-profile=NoTitleChange -t "browser $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
+--tab-with-profile=NoTitleChange -t "minicom0(/home/terrylove/logs/minicom/minicom0_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB0 -b 115200 -C /home/terrylove/logs/minicom/minicom0_$DATE.txt; exec bash -i\"" \
+--tab-with-profile=NoTitleChange -t "minicom1(/home/terrylove/logs/minicom/minicom1_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB1 -b 115200 -C /home/terrylove/logs/minicom/minicom1_$DATE.txt; exec bash -i\""
 }
 
 # --tab-with-profile=NoTitleChange -t "adb logcat(/home/terrylove/logs/adb/adb_$DATE.txt)" --zoom=1.4 -e "bash -c \"adb logcat > /home/terrylove/logs/adb/adb_$DATE.txt; exec bash -i\"" \

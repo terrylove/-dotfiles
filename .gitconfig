@@ -6,7 +6,7 @@
 [merge]
 	tool = meld
 [gui]
-	editor = geany
+	editor = vim
 [color]
 	ui = auto
 [giggle]
@@ -21,4 +21,4 @@ lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(
 lg = !"git lg1"
 st = status
 [core]
-	editor = gedit
+	editor = vim
