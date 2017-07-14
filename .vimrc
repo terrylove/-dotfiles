@@ -46,6 +46,9 @@ set wildmenu
 set statusline+=%F
 set laststatus=2
 
+set noswapfile
+set switchbuf+=usetab,newtab
+
 "MiniBufExplorer
 let g:miniBufExplMapWindowNavVim = 1 
 let g:miniBufExplMapWindowNavArrows = 1 
@@ -63,3 +66,7 @@ vmap <C-C> "+y
 "vmap <leader>y "+y
 "vnoremap <C-C> "+y
 "vnoremap <C-V> "+p
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
