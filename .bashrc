@@ -57,9 +57,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -114,14 +114,20 @@ if ! shopt -oq posix; then
 fi
 
 ANDROID_NDK_HOME=/home/terrylove/codebase/AndroidTool/android-ndk-r9
-ADB_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/sdk/platform-tools
-AAPT_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/sdk/build-tools/android-4.3
-ECLIPSE_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/eclipse
+ADB_HOME=/home/terrylove/codebase/AndroidTool/android-sdk-linux/platform-tools
+AAPT_HOME=/home/terrylove/codebase/AndroidTool/android-sdk-linux/build-tools/23.0.2
+#ECLIPSE_HOME=/home/terrylove/codebase/AndroidTool/adt-bundle-linux-x86_64-20130729/eclipse
 JAVA_HOME=/usr/lib/jvm/jdk1.6.0_45
-PATH=$JAVA_HOME:$AAPT_HOME:$ECLIPSE_HOME:$ANDROID_NDK_HOME:$ADB_HOME:$PATH
+DEPOT_TOOLS=/home/terrylove/codebase/AndroidTool/depot_tools
+PATH=$JAVA_HOME:$AAPT_HOME:$ANDROID_NDK_HOME:$ADB_HOME:$DEPOT_TOOLS:$PATH
 #export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/dist-packages/
 alias python=/usr/bin/python2.7
 
+export LD_LIBRARY_PATH=~/gcc-5.2.0/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=~/gcc-5.2.0/lib64:$LD_LIBRARY_PATH
+
+#for git
+export GIT_SSL_NO_VERIFY=1
 
 adb_permission() {
 ADB_PATH=`which adb`
@@ -152,65 +158,27 @@ sudo update-alternatives --set keytool /usr/lib/jvm/jdk1.7.0_79/bin/keytool
 sudo update-alternatives --set javap /usr/lib/jvm/jdk1.7.0_79/bin/javap
 }
 
-shine_work() {
-launch_workspace shine_eng $1
-}
-
-Q22_work() {
-launch_workspace E60Q22 $1
-}
-
-Q32_work() {
-launch_workspace E60Q32_NTX $1
-}
-
-Piper_work() {
-launch_workspace Piper $1
-}
-
-Piper_eng_work() {
-launch_workspace Piper_eng $1
-} 
-
-NBKK_work() {
-launch_workspace NBKK $1
-}
-
 launch_workspace() {
-CODEBASE=$1
-if [[ -n $2 ]]; then
-echo 11111111111111
-TARGET_COMPORT=$2
-else
-echo 222222222222222
-TARGET_COMPORT=0
-fi
-
-echo "CODEBASE = "$CODEBASE
-echo "TARGET_COMPORT = "$TARGET_COMPORT
-if [[ $CODEBASE == "E61"* || $CODEBASE == "E6E"* || $CODEBASE == "shine"* ]]; then
-	echo "imx5 series !!"
-PLATFORM=imx50
-else
-	echo "imx6 series !!"
-PLATFORM=imx6
-fi
+CODEBASE=`basename $1`
 
 DATE=`date +%Y%m%d%H%M%S`
-echo "time : " $DATE
 adb_permission
 
 gnome-terminal --maximize \
---tab-with-profile=NoTitleChange -t "build $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "search $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "burn $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
---tab-with-profile=NoTitleChange -t "browser $CODEBASE" --zoom=1.3 --working-directory=/home/terrylove/codebase/$PLATFORM/$CODEBASE \
+--tab-with-profile=NoTitleChange -t "build $CODEBASE" --zoom=1.3 --working-directory=$1 \
+--tab-with-profile=NoTitleChange -t "search $CODEBASE" --zoom=1.3 --working-directory=$1 \
+--tab-with-profile=NoTitleChange -t "burn $CODEBASE" --zoom=1.3 --working-directory=$1 \
+--tab-with-profile=NoTitleChange -t "browser $CODEBASE" --zoom=1.3 --working-directory=$1 \
 --tab-with-profile=NoTitleChange -t "minicom0(/home/terrylove/logs/minicom/minicom0_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB0 -b 115200 -C /home/terrylove/logs/minicom/minicom0_$DATE.txt; exec bash -i\"" \
---tab-with-profile=NoTitleChange -t "minicom1(/home/terrylove/logs/minicom/minicom1_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB1 -b 115200 -C /home/terrylove/logs/minicom/minicom1_$DATE.txt; exec bash -i\""
+--tab-with-profile=NoTitleChange -t "minicom1(/home/terrylove/logs/minicom/minicom1_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB1 -b 115200 -C /home/terrylove/logs/minicom/minicom1_$DATE.txt; exec bash -i\"" \
+--tab-with-profile=NoTitleChange -t "minicom2(/home/terrylove/logs/minicom/minicom2_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB2 -b 115200 -C /home/terrylove/logs/minicom/minicom2_$DATE.txt; exec bash -i\"" \
+--tab-with-profile=NoTitleChange -t "minicom3(/home/terrylove/logs/minicom/minicom3_$DATE.txt)" --zoom=1.4 -e "bash -c \"sudo minicom -c on -D/dev/ttyUSB3 -b 115200 -C /home/terrylove/logs/minicom/minicom3_$DATE.txt; exec bash -i\"" 
+
 }
 
 # --tab-with-profile=NoTitleChange -t "adb logcat(/home/terrylove/logs/adb/adb_$DATE.txt)" --zoom=1.4 -e "bash -c \"adb logcat > /home/terrylove/logs/adb/adb_$DATE.txt; exec bash -i\"" \
 # --tab-with-profile=NoTitleChange -t "adb logcat show" --zoom=1.4 -e "bash -c \"adb logcat ; exec bash -i\""
+# gnome-terminal --tab -e "tail -f somefile" --tab -e "some_other_command"
 
 #export CSCOPE_EDITOR=vim
 
