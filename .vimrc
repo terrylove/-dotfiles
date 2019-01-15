@@ -117,6 +117,8 @@ Plug 'vim-scripts/Wombat'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
 
+Plug 'alpertuna/vim-header'
+
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
 
@@ -282,6 +284,7 @@ let g:NERDTreeGlyphReadOnly = "RO"
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeMapOpenInTab='o'
 
 " Tasklist ------------------------------
 
@@ -445,10 +448,80 @@ let g:airline#extensions#tabline#show_buffers = 0
 "let g:airline_symbols.readonly = '⭤'
 "let g:airline_symbols.linenr = '⭡'
 
-"Leaderf
+"Leaderf --------------------------
 let g:Lf_UseVersionControlTool = '0'
 let g:Lf_UseCache = 0
+map <Space><Space> :LeaderfFile<CR>
+
+"vim-header--------------------------------
+let g:header_field_author = 'terrylove'
+let g:header_field_author_email = 'terry494@gmail.com'
+
 
 map <f5> :call ToggleQuickfixList()<CR>
 vmap <C-C> "+y
+
+" for create new class
+
+function NewFileComment()
+   let timestamp = strftime('%Y-%m-%d %H:%M:%S')
+   let user = expand("$USER")
+   insert
+//
+// Created by user on timestamp.
+//
+.
+   %s/user/\=l:user/g
+   %s/timestamp/\=l:timestamp/g
+endfunction
+
+function! New_Class_C(l_class_name, u_class_name)
+   insert
+#include "l_class_name.h"
+
+u_class_name::u_class_name()
+{
+
+}
+
+u_class_name::~u_class_name()
+{
+}
+.
+   %s/l_class_name/\=a:l_class_name/g
+   %s/u_class_name/\=a:u_class_name/g
+endfunction
+
+function New_Class_H(l_class_name, u_class_name)
+   insert
+#ifndef u_class_name_H
+#define u_class_name_H
+
+class l_class_name {
+public:
+   l_class_name();
+   ~l_class_name();
+};
+
+#endif
+.
+   %s/l_class_name/\=a:l_class_name/g
+   %s/u_class_name/\=a:u_class_name/g
+endfunction
+"// Created by terrylove on 2018/11/27.
+
+function New_Class()
+   let class_name = expand("%:t:r")
+   let file_type = expand("%:e")
+   let l_class_name = tolower(class_name)
+   let u_class_name = toupper(class_name)
+    
+   if file_type =~# "c"
+      call New_Class_C(class_name, class_name)
+  else
+      call New_Class_H(class_name, u_class_name)
+   endif
+endfunction
+
+
 
